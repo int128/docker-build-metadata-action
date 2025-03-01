@@ -18,7 +18,7 @@ function assertIsMetadata(o: unknown): asserts o is Metadata {
 }
 
 export const parseMetadataJSON = (metadataString: string): Metadata => {
-  const metadata = JSON.parse(metadataString)
+  const metadata: unknown = JSON.parse(metadataString)
   assertIsMetadata(metadata)
   return metadata
 }
