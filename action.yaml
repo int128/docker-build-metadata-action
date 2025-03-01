@@ -1,10 +1,14 @@
-name: typescript-action
-description: Template of TypeScript Action
+name: docker-build-metadata-action
+description: Parse output metadata of docker/build-push-action
 
 inputs:
-  name:
-    description: example input
+  metadata:
+    description: Metadata output from docker/build-push-action
     required: true
+
+outputs:
+  image-uri:
+    description: Image URI
 
 runs:
   using: 'node20'

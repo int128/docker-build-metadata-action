@@ -1,10 +1,17 @@
-import * as core from '@actions/core'
+import { getImageURI, parseMetadataJSON } from './metadata.js'
 
 type Inputs = {
-  name: string
+  metadata: string
+}
+
+type Outputs = {
+  imageURI: string | undefined
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
-export const run = async (inputs: Inputs): Promise<void> => {
-  core.info(`my name is ${inputs.name}`)
+export const run = async (inputs: Inputs): Promise<Outputs> => {
+  const metadata = parseMetadataJSON(inputs.metadata)
+  return {
+    imageURI: getImageURI(metadata),
+  }
 }
