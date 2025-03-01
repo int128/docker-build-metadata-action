@@ -25,6 +25,3 @@ jobs:
       - run: pnpm i
       - run: pnpm build
       - uses: int128/release-typescript-action@f30250a9bb537e3a541f581122deb035080e8f68 # v1.35.0
-        with:
-          # TODO: change this on the stable release
-          major-version: 0
