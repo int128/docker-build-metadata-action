@@ -1,0 +1,30 @@
+{
+  "private": true,
+  "scripts": {
+    "format": "prettier --write **/*.ts",
+    "lint": "eslint .",
+    "build": "ncc build --source-map --license licenses.txt src/main.ts",
+    "test": "vitest"
+  },
+  "type": "module",
+  "dependencies": {
+    "@actions/core": "1.11.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.21.0",
+    "@tsconfig/node20": "20.1.4",
+    "@types/node": "20.17.21",
+    "@vercel/ncc": "0.38.3",
+    "@vitest/eslint-plugin": "1.1.36",
+    "eslint": "9.21.0",
+    "pnpm": "10.5.2",
+    "prettier": "3.5.2",
+    "typescript": "5.8.2",
+    "typescript-eslint": "8.25.0",
+    "vitest": "3.0.7"
+  },
+  "engines": {
+    "node": "20.x"
+  },
+  "packageManager": "pnpm@10.5.2"
+}
