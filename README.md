@@ -34,6 +34,33 @@ jobs:
           metadata: ${{ steps.build.outputs.metadata }}
 ```
 
+## Specification
+
+This action assumes that the metadata output of `docker/build-push-action` has the following format.
+
+```json
+{
+  "containerimage.digest": "sha256:550ca2b897799d1ba9f799ca535bde988cd1427d039b34d583eba24ce5fc6c98",
+  "image.name": "ghcr.io/int128/kubebuilder-updates:main"
+}
+```
+
+The output `image-uri` is `ghcr.io/int128/kubebuilder-updates:main@sha256:550ca2b897799d1ba9f799ca535bde988cd1427d039b34d583eba24ce5fc6c98`.
+
+If the metadata has multiple image names, the action returns the image URI with the first image name.
+For example,
+
+```json
+{
+  "containerimage.digest": "sha256:550ca2b897799d1ba9f799ca535bde988cd1427d039b34d583eba24ce5fc6c98",
+  "image.name": "ghcr.io/int128/kubebuilder-updates:v1.0.0,ghcr.io/int128/kubebuilder-updates:latest"
+}
+```
+
+The output `image-uri` is `ghcr.io/int128/kubebuilder-updates:v1.0.0@sha256:550ca2b897799d1ba9f799ca535bde988cd1427d039b34d583eba24ce5fc6c98`.
+
+If any of the metadata is missing, the action returns no output.
+
 ### Inputs
 
 | Name       | Default    | Description                                 |
