@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getImageURI, Metadata, parseMetadataJSON } from '../src/metadata.js'
+import { getImageURI, type Metadata, parseMetadataJSON } from '../src/metadata.js'
 
 describe('parseMetadataJSON', () => {
   it('parses the metadata', () => {
