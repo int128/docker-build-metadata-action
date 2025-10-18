@@ -1,4 +1,4 @@
-import assert from 'assert'
+import assert from 'node:assert'
 
 // https://docs.docker.com/reference/cli/docker/buildx/build/#metadata-file
 export type Metadata = {
