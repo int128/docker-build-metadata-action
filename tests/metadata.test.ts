@@ -11,7 +11,7 @@ describe('getImageURI', () => {
     )
   })
 
-  it('returns the first image URI if image.name has multiple images', () => {
+  it('returns the first image URI if multiple tags are provided', () => {
     const digest = 'sha256:550ca2b897799d1ba9f799ca535bde988cd1427d039b34d583eba24ce5fc6c98'
     const tags = ['ghcr.io/int128/kubebuilder-updates:v1.0.0', 'ghcr.io/int128/kubebuilder-updates:latest']
     const imageURI = getImageURI(tags, digest)
