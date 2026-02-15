@@ -44,7 +44,7 @@ For example, if the first tag is `ghcr.io/owner/repo:tag` and the digest is `sha
 In v1, this action parses the metadata JSON output from `docker/build-push-action` to get the image URI.
 In v2, this action directly takes the `tags` and `digest` outputs from `docker/metadata-action` and `docker/build-push-action` respectively to construct the image URI.
 
-### Before
+Before:
 
 ```yaml
 - uses: int128/docker-build-metadata-action@v1
@@ -52,7 +52,7 @@ In v2, this action directly takes the `tags` and `digest` outputs from `docker/m
     metadata: ${{ steps.build.outputs.metadata }} # outputs from docker/build-push-action
 ```
 
-### After
+After:
 
 ```yaml
 - uses: int128/docker-build-metadata-action@v2
