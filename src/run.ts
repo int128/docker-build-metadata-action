@@ -1,17 +1,19 @@
-import { getImageURI, parseMetadataJSON } from './metadata.js'
+import { getImageURI } from './metadata.js'
 
 type Inputs = {
-  metadata: string
+  tags: string[]
+  digest: string
 }
 
 type Outputs = {
   imageURI: string | undefined
 }
 
-// eslint-disable-next-line @typescript-eslint/require-await
 export const run = async (inputs: Inputs): Promise<Outputs> => {
-  const metadata = parseMetadataJSON(inputs.metadata)
   return {
-    imageURI: getImageURI(metadata),
+    imageURI: getImageURI(
+      inputs.tags.map((tag) => tag.trim()).filter((tag) => tag.length > 0 && !tag.startsWith('#')),
+      inputs.digest,
+    ),
   }
 }

@@ -1,10 +1,13 @@
 name: docker-build-metadata-action
-description: Parse output metadata of docker/build-push-action
+description: Parse outputs of docker/metadata-action and docker/build-push-action
 
 inputs:
-  metadata:
-    description: Metadata output from docker/build-push-action
+  tags:
+    description: Tags output from docker/metadata-action
     required: true
+  digest:
+    description: Digest output from docker/build-push-action
+    required: false
 
 outputs:
   image-uri:
