@@ -28,7 +28,7 @@ jobs:
           push: true
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
-      - uses: int128/docker-build-metadata-action@v1
+      - uses: int128/docker-build-metadata-action@v2
         id: build-metadata
         with:
           tags: ${{ steps.metadata.outputs.tags }}
@@ -38,6 +38,28 @@ jobs:
 This action returns the image URI as an output.
 The image URI is constructed by concatenating the first tag and the digest with `@` as a separator.
 For example, if the first tag is `ghcr.io/owner/repo:tag` and the digest is `sha256:abc123`, the image URI will be `ghcr.io/owner/repo:tag@sha256:abc123`.
+
+## V2 Migration
+
+In v1, this action parses the metadata JSON output from `docker/build-push-action` to get the image URI.
+In v2, this action directly takes the `tags` and `digest` outputs from `docker/metadata-action` and `docker/build-push-action` respectively to construct the image URI.
+
+### Before
+
+```yaml
+- uses: int128/docker-build-metadata-action@v1
+  with:
+    metadata: ${{ steps.build.outputs.metadata }} # outputs from docker/build-push-action
+```
+
+### After
+
+```yaml
+- uses: int128/docker-build-metadata-action@v2
+  with:
+    tags: ${{ steps.metadata.outputs.tags }} # outputs from docker/metadata-action
+    digest: ${{ steps.build.outputs.digest }} # outputs from docker/build-push-action
+```
 
 ## Specification
 
