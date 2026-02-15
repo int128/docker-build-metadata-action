@@ -1,6 +1,6 @@
 # docker-build-metadata-action [![ts](https://github.com/int128/docker-build-metadata-action/actions/workflows/ts.yaml/badge.svg)](https://github.com/int128/docker-build-metadata-action/actions/workflows/ts.yaml)
 
-This action parses the metadata output of https://github.com/docker/build-push-action.
+This action parses the outputs of https://github.com/docker/metadata-action and https://github.com/docker/build-push-action.
 
 ## Getting Started
 
@@ -31,41 +31,30 @@ jobs:
       - uses: int128/docker-build-metadata-action@v1
         id: build-metadata
         with:
-          metadata: ${{ steps.build.outputs.metadata }}
+          tags: ${{ steps.metadata.outputs.tags }}
+          digest: ${{ steps.build.outputs.digest }}
 ```
+
+This action returns the image URI as an output.
+The image URI is constructed by concatenating the first tag and the digest with `@` as a separator.
+For example, if the first tag is `ghcr.io/owner/repo:tag` and the digest is `sha256:abc123`, the image URI will be `ghcr.io/owner/repo:tag@sha256:abc123`.
 
 ## Specification
 
-This action assumes that the metadata output of `docker/build-push-action` has the following format.
+This action assumes the following inputs:
 
-```json
-{
-  "containerimage.digest": "sha256:550ca2b897799d1ba9f799ca535bde988cd1427d039b34d583eba24ce5fc6c98",
-  "image.name": "ghcr.io/int128/kubebuilder-updates:main"
-}
-```
+- `tags` is the image tags in multiline string format.
+- `digest` is the image digest in string format.
 
-The output `image-uri` is `ghcr.io/int128/kubebuilder-updates:main@sha256:550ca2b897799d1ba9f799ca535bde988cd1427d039b34d583eba24ce5fc6c98`.
-
-If the metadata has multiple image names, the action returns the image URI with the first image name.
-For example,
-
-```json
-{
-  "containerimage.digest": "sha256:550ca2b897799d1ba9f799ca535bde988cd1427d039b34d583eba24ce5fc6c98",
-  "image.name": "ghcr.io/int128/kubebuilder-updates:v1.0.0,ghcr.io/int128/kubebuilder-updates:latest"
-}
-```
-
-The output `image-uri` is `ghcr.io/int128/kubebuilder-updates:v1.0.0@sha256:550ca2b897799d1ba9f799ca535bde988cd1427d039b34d583eba24ce5fc6c98`.
-
-If any of the metadata is missing, the action returns no output.
+If `tags` contains multiple tags, the first tag is used to construct the image URI.
+The image URI is constructed by concatenating the first tag and the digest with `@` as a separator.
 
 ### Inputs
 
-| Name       | Default    | Description                                 |
-| ---------- | ---------- | ------------------------------------------- |
-| `metadata` | (required) | Output metadata of docker/build-push-action |
+| Name     | Default    | Description                                 |
+| -------- | ---------- | ------------------------------------------- |
+| `tags`   | (required) | Tags output from docker/metadata-action     |
+| `digest` | (optional) | Digest output from docker/build-push-action |
 
 ### Outputs
 

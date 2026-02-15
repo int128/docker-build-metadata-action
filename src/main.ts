@@ -3,7 +3,8 @@ import { run } from './run.js'
 
 const main = async (): Promise<void> => {
   const outputs = await run({
-    metadata: core.getInput('metadata', { required: true }),
+    tags: core.getMultilineInput('tags', { required: true }),
+    digest: core.getInput('digest'),
   })
   core.info(`Setting the outputs: ${JSON.stringify(outputs)}`)
   if (outputs.imageURI) {

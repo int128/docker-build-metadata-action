@@ -58,7 +58,8 @@ jobs:
         id: build-metadata
         uses: ./
         with:
-          metadata: ${{ steps.build.outputs.metadata }}
+          tags: ${{ steps.metadata.outputs.tags }}
+          digest: ${{ steps.build.outputs.digest }}
       - run: test -n "$IMAGE_URI"
         env:
           IMAGE_URI: ${{ steps.build-metadata.outputs.image-uri }}
