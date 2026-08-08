@@ -12,7 +12,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.5.6",
     "@tsconfig/node24": "24.0.4",
-    "@types/node": "24.12.4",
+    "@types/node": "24.13.3",
     "@vercel/ncc": "0.44.1",
     "pnpm": "11.1.2",
     "typescript": "6.0.3",
